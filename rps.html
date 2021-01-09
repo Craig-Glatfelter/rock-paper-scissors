@@ -22,9 +22,37 @@
             }  
             console.log(`Computer's pick: ${compChoice}`)
         }
+        function playerPlay() {
+            let playPick = prompt("Rock, paper, or Scissors?").toLowerCase();
+            if (playPick === "rock") {
+                playChoice = "rock";
+            } else if (playPick === "paper") {
+                playChoice = "paper";
+            } else if (playPick === "scissors") {
+                playChoice = "scissors";
+            } else {
+                playerPlay();
+            }
+            console.log(`Player's pick: ${playChoice}`)
+        }
+        function oneRound() {
+            playerPlay();
+            computerPlay();
+            if (compChoice === playChoice) {
+                console.log("It's a tie!")
+            } else if (compChoice === "rock" && playChoice === "scissors") {
+                console.log("Computer wins.")
+            } else if (compChoice === "paper" && playChoice === "rock") {
+                console.log("Computer wins.")
+            } else if (compChoice === "scissors" && playChoice === "paper") {
+                console.log("Computer wins.")
+            } else {
+                console.log('Players wins!')
+            }    
+        }   
+        oneRound();
+
         
-        computerPlay();
-        console.log(compNum)
     </script>
 </body>
 </html>
