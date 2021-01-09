@@ -36,21 +36,60 @@
             console.log(`Player's pick: ${playChoice}`)
         }
         function oneRound() {
+            let trackArr = [];
             playerPlay();
             computerPlay();
             if (compChoice === playChoice) {
                 console.log("It's a tie!")
+                trackArr.push(0);
             } else if (compChoice === "rock" && playChoice === "scissors") {
                 console.log("Computer wins.")
+                trackArr.push(-1);
             } else if (compChoice === "paper" && playChoice === "rock") {
                 console.log("Computer wins.")
+                trackArr.push(-1);
             } else if (compChoice === "scissors" && playChoice === "paper") {
                 console.log("Computer wins.")
+                trackArr.push(-1);
             } else {
                 console.log('Players wins!')
-            }    
-        }   
-        oneRound();
+                trackArr.push(1);
+            }
+            console.log(trackArr);   
+        }
+        function bestOfThree() {
+            let trackArr = [];
+            for (let i=0; i<3; i++) {
+              playerPlay();
+              computerPlay();
+              if (compChoice === playChoice) {
+                console.log("It's a tie!")
+                trackArr.push(0);
+              } else if (compChoice === "rock" && playChoice === "scissors") {
+                console.log("Computer wins.")
+                trackArr.push(-1);
+              } else if (compChoice === "paper" && playChoice === "rock") {
+                console.log("Computer wins.")
+                trackArr.push(-1);
+              } else if (compChoice === "scissors" && playChoice === "paper") {
+                console.log("Computer wins.")
+                trackArr.push(-1);
+              } else {
+                console.log('Players wins!')
+                trackArr.push(1);
+                }
+              console.log(trackArr);   
+           } if (trackArr.reduce((a, b) => a + b, 0) >= 3){
+               console.log("The Player Wins!");
+           } else if (trackArr.reduce((a, b) => a + b, 0) <= -3){
+               console.log("Game Over.")
+           } else if (trackArr.reduce((a, b) => a + b, 0) > -3 && trackArr.reduce((a, b) => a + b, 0) < 3) {
+               oneRound();
+           }
+
+        }
+        bestOfThree();
+        
 
         
     </script>
