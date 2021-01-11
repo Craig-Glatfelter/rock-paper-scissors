@@ -88,7 +88,46 @@
            }
 
         }
-        bestOfThree();
+
+        let trackPlayerArr = [0];
+        let trackComputerArr = [0];
+        let bestOfNumber = 3;
+        function bestOf() {
+            
+            if (trackPlayerArr.reduce((a, b) => a + b, 0) < bestOfNumber &&     trackComputerArr.reduce((a, b) => a + b, 0) < bestOfNumber) {
+                playerPlay();
+                computerPlay();
+                if (compChoice === playChoice) {
+                console.log("It's a tie!")
+                bestOf();
+                } else if (compChoice === "rock" && playChoice === "scissors") {
+                console.log("Computer wins.")
+                trackComputerArr.push(1);
+                bestOf();
+                } else if (compChoice === "paper" && playChoice === "rock") {
+                console.log("Computer wins.")
+                trackComputerArr.push(1);
+                bestOf();
+                } else if (compChoice === "scissors" && playChoice === "paper") {
+                console.log("Computer wins.")
+                trackComputerArr.push(1);
+                bestOf();
+                } else {
+                console.log('Players wins!')
+                trackPlayerArr.push(1);
+                bestOf();
+            }
+        
+            if (trackPlayerArr.reduce((a, b) => a + b, 0) >= bestOfNumber){
+               console.log("The Player Wins!");
+               console.log(trackPlayerArr);
+            } else if (trackComputerArr.reduce((a, b) => a + b, 0) >= bestOfNumber){
+               console.log("Game Over.");
+               console.log(trackComputerArr);
+               }
+            }
+        }
+        bestOf();
         
 
         
