@@ -6,7 +6,22 @@
     <title>Play: Rock - Paper - Scissors</title>
 </head>
 <body>
+    <h1>Play Rock, Paper, or Scissors!</h1>
+    <div id = 'buttons'>
+        <button id = 'rButton'>Rock</button>
+        <button id = 'pButton'>Paper</button>
+        <button id = 'sButton'>Scissors</button>
+    </div>
+
     <script>
+        const rockButton = document.getElementById('rButton');
+        const onRockClick = function() {
+            rockButton.innerHTML = "Alright!"
+        }
+        rockButton.addEventListener('click', onRockClick);
+
+
+
         let playChoice = "";
         let compChoice = "";
         function computerPlay() {
@@ -57,37 +72,6 @@
             }
             console.log(trackArr);   
         }
-        /*function bestOfThree() {
-            let trackArr = [];
-            for (let i=0; i<3; i++) {
-              playerPlay();
-              computerPlay();
-              if (compChoice === playChoice) {
-                console.log("It's a tie!")
-                trackArr.push(0);
-              } else if (compChoice === "rock" && playChoice === "scissors") {
-                console.log("Computer wins.")
-                trackArr.push(-1);
-              } else if (compChoice === "paper" && playChoice === "rock") {
-                console.log("Computer wins.")
-                trackArr.push(-1);
-              } else if (compChoice === "scissors" && playChoice === "paper") {
-                console.log("Computer wins.")
-                trackArr.push(-1);
-              } else {
-                console.log('Players wins!')
-                trackArr.push(1);
-                }
-              console.log(trackArr);   
-           } if (trackArr.reduce((a, b) => a + b, 0) >= 3){
-               console.log("The Player Wins!");
-           } else if (trackArr.reduce((a, b) => a + b, 0) <= -3){
-               console.log("Game Over.")
-           } else if (trackArr.reduce((a, b) => a + b, 0) > -3 && trackArr.reduce((a, b) => a + b, 0) < 3) {
-               oneRound();
-           }
-
-        }*/
 
         let trackPlayerArr = [0];
         let trackComputerArr = [0];
@@ -127,7 +111,6 @@
                }
             }
         }
-        bestOf();
         
 
         
