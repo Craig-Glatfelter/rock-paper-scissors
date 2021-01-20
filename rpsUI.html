@@ -12,16 +12,38 @@
         <button id = 'pButton'>Paper</button>
         <button id = 'sButton'>Scissors</button>
     </div>
+    <div id = "results">
+        <h2>Results</h2>
+        <p id = "resultsP"></p>
+    </div>
 
     <script>
+        // results div variable.
+        const resultsDiv = document.getElementById('resultsP');
+
+        //Player picks rock.
         const rockButton = document.getElementById('rButton');
         const onRockClick = function() {
-            rockButton.innerHTML = "Alright!"
+            oneRound('rock');
         }
         rockButton.addEventListener('click', onRockClick);
 
+        // Player picks paper.
+        const paperButton = document.getElementById('pButton');
+        const onPaperClick = function() {
+            oneRound('paper');
+        }
+        paperButton.addEventListener('click', onPaperClick);
+        
+        // Player picks scissors.
+        const scissorsButton = document.getElementById('sButton');
+        const onScissorsClick = function() {
+            oneRound('scissors');
+        }
+        scissorsButton.addEventListener('click', onScissorsClick);
 
 
+        // Computer's choice function.  
         let playChoice = "";
         let compChoice = "";
         function computerPlay() {
@@ -37,41 +59,39 @@
             }  
             console.log(`Computer's pick: ${compChoice}`)
         }
-        function playerPlay() {
-            let playPick = prompt("Rock, paper, or Scissors?").toLowerCase();
-            if (playPick === "rock") {
-                playChoice = "rock";
-            } else if (playPick === "paper") {
-                playChoice = "paper";
-            } else if (playPick === "scissors") {
-                playChoice = "scissors";
-            } else {
-                playerPlay();
-            }
-            console.log(`Player's pick: ${playChoice}`)
-        }
-        function oneRound() {
+        
+        // Play one round function
+        function oneRound(playChoice) {
             let trackArr = [];
-            playerPlay();
+            let whoWins = ""
             computerPlay();
+            console.log(`Player's pick: ${playChoice}`)
             if (compChoice === playChoice) {
-                console.log("It's a tie!")
+                whoWins = "It's a tie!"
                 trackArr.push(0);
             } else if (compChoice === "rock" && playChoice === "scissors") {
-                console.log("Computer wins.")
+                whoWins = "Computer wins."
                 trackArr.push(-1);
             } else if (compChoice === "paper" && playChoice === "rock") {
-                console.log("Computer wins.")
+                whoWins = "Computer wins."
                 trackArr.push(-1);
             } else if (compChoice === "scissors" && playChoice === "paper") {
-                console.log("Computer wins.")
+                whoWins = "Computer wins."
                 trackArr.push(-1);
             } else {
-                console.log('Players wins!')
+                whoWins = 'Player wins!'
                 trackArr.push(1);
             }
-            console.log(trackArr);   
+            console.log(trackArr);
+            // change results div  
+            resultsDiv.innerHTML = `Computer's pick: ${compChoice}</br> </br>
+        Player's pick: ${playChoice} </br></br>
+        <span style = "font-size: x-large" id = 'wins'>${whoWins}</span.`
+        resultsDiv.style.color = 'green'; 
         }
+
+
+        // Best of a number amount of games.
 
         let trackPlayerArr = [0];
         let trackComputerArr = [0];
