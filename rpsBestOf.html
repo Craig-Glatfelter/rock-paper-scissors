@@ -7,11 +7,12 @@
     <title>Play: Rock - Paper - Scissors</title>
 </head>
 <body>
-    <h1>Play Rock, Paper, or Scissors!</h1>
+    <h1>Play: Rock, Paper, or Scissors!</h1>
     <div id = 'buttons'>
         <button id = 'rButton'>Rock</button>
         <button id = 'pButton'>Paper</button>
         <button id = 'sButton'>Scissors</button>
+        <button id = 'new'>New Game</button>
     </div>
     <div id = "results1">
         <h2>Results</h2>
@@ -19,8 +20,7 @@
     </div>
     <div id = 'results2' >
         <h2>The Score</h2>
-        <p id = 'array-count'>
-        </p>
+        <p id = 'array-count'></p>
     </div>
 
     <script>
@@ -28,6 +28,12 @@
         const resultsDiv = document.getElementById('resultsP');
         const scoreDiv = document.getElementById('array-count');
 
+        // New game button
+        const newGame = document.getElementById('new');
+        const onNewClick = function() {
+            document.location.reload();
+        }
+        newGame.addEventListener('click', onNewClick)
         //Player picks rock.
         const rockButton = document.getElementById('rButton');
         const onRockClick = function() {
@@ -67,41 +73,16 @@
             console.log(`Computer's pick: ${compChoice}`)
         }
         
-        // Play one round function
-        /*function oneRound(playChoice) {
-            let trackArr = [];
-            let whoWins = ""
-            computerPlay();
-            console.log(`Player's pick: ${playChoice}`)
-            if (compChoice === playChoice) {
-                whoWins = "It's a tie!"
-                trackArr.push(0);
-            } else if (compChoice === "rock" && playChoice === "scissors") {
-                whoWins = "Computer wins."
-                trackArr.push(-1);
-            } else if (compChoice === "paper" && playChoice === "rock") {
-                whoWins = "Computer wins."
-                trackArr.push(-1);
-            } else if (compChoice === "scissors" && playChoice === "paper") {
-                whoWins = "Computer wins."
-                trackArr.push(-1);
-            } else {
-                whoWins = 'Player wins!'
-                trackArr.push(1);
-            }
-            console.log(trackArr);
-            // change results div  
-            resultsDiv.innerHTML = `Computer's pick: ${compChoice}</br> </br>
-        Player's pick: ${playChoice} </br></br>
-        <span style = "font-size: x-large" id = 'wins'>${whoWins}</span.`
-        }
-*/
-
+       
         // Best of a number amount of games.
 
+        // Global variables
         let trackPlayerArr = [0];
         let trackComputerArr = [0];
-        let bestOfNumber = 3;
+        let totalGames = 3
+        let bestOfNumber = (totalGames/2) + .5;
+
+        // Best of Function
         function bestOf(playChoice) {
             let whoWins = "";
             if (trackPlayerArr.reduce((a, b) => a + b, 0) < bestOfNumber && trackComputerArr.reduce((a, b) => a + b, 0) < bestOfNumber) {
