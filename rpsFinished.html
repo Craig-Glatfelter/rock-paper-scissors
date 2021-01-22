@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Rock - Paper - Scissors</title>
+</head>
+<body>
+    <h1>Play: Rock, Paper, or Scissors!</h1>
+    <div id = 'buttons'>
+        <button id = 'rButton'>Rock</button>
+        <button id = 'pButton'>Paper</button>
+        <button id = 'sButton'>Scissors</button>
+        <button id = 'new'>New Game</button>
+    </div>
+    <div id = "results1">
+        <h2>Results</h2>
+        <p id = "resultsP">Computer's pick: <span id = "comp-result"></span></br></br>Player's pick: <span id = "play-result"></span></br></br><span style = "font-size: x-large" id = 'wins'></span></p>
+    </div>
+    <div id = 'results2' >
+        <h2>The Score</h2>
+        <p id = 'array-count'></p>
+    </div>
+
+    <script>
+        // results, score div variables.
+        const resultsComp = document.getElementById('comp-result');
+        const resultsPlay = document.getElementById('play-result');
+        const resultWin = document.getElementById('wins');
+        const scoreDiv = document.getElementById('array-count');
+        const resultsDiv = document.getElementById('results1');
+        // New game button
+        const newGame = document.getElementById('new');
+        const onNewClick = function() {
+            document.location.reload();
+        }
+        newGame.addEventListener('click', onNewClick)
+        //Player picks rock.
+        const rockButton = document.getElementById('rButton');
+        const onRockClick = function() {
+            bestOf('rock');
+        }
+        rockButton.addEventListener('click', onRockClick);
+
+        // Player picks paper.
+        const paperButton = document.getElementById('pButton');
+        const onPaperClick = function() {
+            bestOf('paper');
+        }
+        paperButton.addEventListener('click', onPaperClick);
+        
+        // Player picks scissors.
+        const scissorsButton = document.getElementById('sButton');
+        const onScissorsClick = function() {
+            bestOf('scissors');
+        }
+        scissorsButton.addEventListener('click', onScissorsClick);
+
+
+        // Computer's choice function.  
+        let playChoice = "";
+        let compChoice = "";
+        function computerPlay() {
+            compNum = Math.floor(Math.random() * 3);
+            switch(compNum) {
+                case 0:
+                  compChoice = "rock";
+                  break;
+                case 1:
+                  compChoice = "paper";
+                  break;
+                case 2:
+                  compChoice = "scissors";
+                  break;
+            }
+        }
+           
+        // Best of a number amount of games.
+
+        // Global variables
+        let trackPlayerArr = [0];
+        let trackComputerArr = [0];
+        let totalGames = 3
+        let bestOfNumber = (totalGames/2) + .5;
+
+        // Best of Function
+        function bestOf(playChoice) {
+            let whoWins = "";
+            if (trackPlayerArr.reduce((a, b) => a + b, 0) < bestOfNumber && trackComputerArr.reduce((a, b) => a + b, 0) < bestOfNumber) {
+                computerPlay();
+                if (compChoice === playChoice) {
+                whoWins = "It's a tie!";
+                resultsComp.innerHTML = `${compChoice}`;
+                resultsPlay.innerHTML = `${playChoice}`;
+                resultWin.innerHTML = `${whoWins}`;
+                scoreDiv.innerHTML = `Player's Score: ${trackPlayerArr.reduce((a, b) => a + b, 0)} <br> Computer's Score: ${trackComputerArr.reduce((a, b) => a + b, 0)}`
+                } else if (compChoice === "rock" && playChoice === "scissors") {
+                whoWins = "Computer wins.";
+                trackComputerArr.push(1);
+                resultsComp.innerHTML = `${compChoice}`;
+                resultsPlay.innerHTML = `${playChoice}`;
+                resultWin.innerHTML = `${whoWins}`;
+                    scoreDiv.innerHTML = `Player's Score: ${trackPlayerArr.reduce((a, b) => a + b, 0)} <br> Computer's Score: ${trackComputerArr.reduce((a, b) => a + b, 0)}`
+                } else if (compChoice === "paper" && playChoice === "rock") {
+                whoWins = "Computer wins.";
+                trackComputerArr.push(1);
+                resultsComp.innerHTML = `${compChoice}`;
+                resultsPlay.innerHTML = `${playChoice}`;
+                resultWin.innerHTML = `${whoWins}`;
+                    scoreDiv.innerHTML = `Player's Score: ${trackPlayerArr.reduce((a, b) => a + b, 0)} <br> Computer's Score: ${trackComputerArr.reduce((a, b) => a + b, 0)}`
+                } else if (compChoice === "scissors" && playChoice === "paper") {
+                whoWins = "Computer wins.";
+                trackComputerArr.push(1);
+                resultsComp.innerHTML = `${compChoice}`;
+                resultsPlay.innerHTML = `${playChoice}`;
+                resultWin.innerHTML = `${whoWins}`;
+                    scoreDiv.innerHTML = `Player's Score: ${trackPlayerArr.reduce((a, b) => a + b, 0)} <br> Computer's Score: ${trackComputerArr.reduce((a, b) => a + b, 0)}`
+                } else {
+                whoWins = 'Players wins!'
+                trackPlayerArr.push(1);
+                resultsComp.innerHTML = `${compChoice}`;
+                resultsPlay.innerHTML = `${playChoice}`;
+                resultWin.innerHTML = `${whoWins}`;
+                    scoreDiv.innerHTML = `Player's Score: ${trackPlayerArr.reduce((a, b) => a + b, 0)} <br> Computer's Score: ${trackComputerArr.reduce((a, b) => a + b, 0)}`
+            }
+        
+            if (trackPlayerArr.reduce((a, b) => a + b, 0) >= bestOfNumber){
+               console.log("The Player Wins!");
+               console.log(trackPlayerArr);
+               resultsDiv.style.display = "none";
+               scoreDiv.innerHTML = `Player's Score: ${trackPlayerArr.reduce((a, b) => a + b, 0)} <br> Computer's Score: ${trackComputerArr.reduce((a, b) => a + b, 0)} </br></br> <span style = "font-size: x-large">You Win Best of 3!</span>`;
+            } else if (trackComputerArr.reduce((a, b) => a + b, 0) >= bestOfNumber){
+               console.log("Game Over.");
+               console.log(trackComputerArr);
+               resultsDiv.style.display = "none";
+               scoreDiv.innerHTML = `Player's Score: ${trackPlayerArr.reduce((a, b) => a + b, 0)} <br> Computer's Score: ${trackComputerArr.reduce((a, b) => a + b, 0)} </br></br> <span style = "font-size: x-large">The Computer Wins Best of 3!</span>`;
+               }
+            }
+        }
+        
+
+        
+    </script>
+</body>
+</html>
